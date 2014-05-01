@@ -1,5 +1,6 @@
 ISO := CentOS-6.5-x86_64-minimal.iso
 MIRROR := http://mirror.us.leaseweb.net/centos/6.5/isos/x86_64
+KS ?= ks.cfg
 
 all: build
 
@@ -14,7 +15,7 @@ build: check
 	mkdir -p tmp/build tmp/mnt
 	mount -o loop $(ISO) tmp/mnt
 	cp -a tmp/mnt/* tmp/build/
-	cp ks.cfg tmp/build/
+	cp $(KS) tmp/build/ks.cfg
 	cp isolinux.cfg tmp/build/isolinux/
 	mkisofs \
 		-b isolinux/isolinux.bin \
