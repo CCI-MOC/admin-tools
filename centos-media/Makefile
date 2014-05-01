@@ -15,6 +15,7 @@ build: check
 	mount -o loop $(ISO) tmp/mnt
 	cp -a tmp/mnt/* tmp/build/
 	cp ks.cfg tmp/build/
+	cp isolinux.cfg tmp/build/isolinux/
 	mkisofs \
 		-b isolinux/isolinux.bin \
 		-c isolinux/boot.cat \
