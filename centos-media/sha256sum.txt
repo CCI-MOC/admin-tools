@@ -1,1 +1,1 @@
-f9d84907d77df62017944cb23cab66305e94ee6ae6c1126415b81cc5e999bdd0  CentOS-6.5-x86_64-minimal.iso
+04e99a4f1a013b95a7ebc9a90ffa9ac64d28eb9872bc193fbd7c581ec9b6a360  CentOS-7.0-1406-x86_64-Minimal.iso

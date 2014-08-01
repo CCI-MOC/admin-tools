@@ -1,5 +1,6 @@
-ISO := CentOS-6.5-x86_64-minimal.iso
-MIRROR := http://mirror.us.leaseweb.net/centos/6.5/isos/x86_64
+ISO := CentOS-7.0-1406-x86_64-Minimal.iso
+MIRROR := http://mirror.us.leaseweb.net/centos/7.0.1406/isos/x86_64
+
 KS ?= ks.cfg
 COPY_FILES ?= copy-files
 
@@ -26,4 +27,4 @@ build: check
 		-boot-load-size 4 \
 		-boot-info-table \
 		-R -J -T \
-		-o centos-6.5-custom.iso tmp/build
+		-o centos-7.0-1406-custom.iso tmp/build
