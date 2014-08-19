@@ -27,4 +27,5 @@ build: check
 		-boot-load-size 4 \
 		-boot-info-table \
 		-R -J -T \
+		-V 'CentOS 7 x86_64' \
 		-o centos-7.0-1406-custom.iso tmp/build
