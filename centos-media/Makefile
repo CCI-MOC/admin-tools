@@ -16,7 +16,7 @@ build: check
 	mkdir -p tmp/build tmp/mnt
 	mount -o loop $(ISO) tmp/mnt
 	cp -a tmp/mnt/* tmp/build/
-	cp -r copy-files tmp/build/copy-files
+	cp -r $(COPY_FILES) tmp/build/copy-files
 	cp $(KS) tmp/build/ks.cfg
 	cp isolinux.cfg tmp/build/isolinux/
 	mkisofs \
