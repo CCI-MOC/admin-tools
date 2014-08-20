@@ -2,7 +2,8 @@ This directory contains scripts for generating custom CentOS
 installation media, the main use of which is to supply a custom
 kickstart configuration file.
 
-To build a custom iso, simply type:
+Both CentOS 6.5 and 7.0 are supported. To build a custom iso, cd into
+the appropriate directory and type:
 
     sudo make KS=/path/to/kickstart-file COPY_FILES=/path/to/files
 
