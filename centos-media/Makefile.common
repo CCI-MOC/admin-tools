@@ -1,3 +1,19 @@
+# This file should be included at the end of a version specific Makefile
+# (see the centos-* subdirectories). That Makefile must define the following
+# variables:
+#
+# ISO_IN := $(filename of the default iso)
+# ISO_OUT := $(filename for the generated iso)
+# ISO_LABEL := $(disk label for the generated iso)
+# MIRROR := $(Mirror from which to download the image. This should be the
+#             entirety of the url, except for the filename ($(ISO_IN), above).)
+#
+# Additionally, make should be invoked from a directory containing the files:
+#
+# sha256sum.txt - sha256 checksum of $(ISO_IN)
+# isolinux.cfg - a version-specific isolinux.cfg, to be copied to the generated
+# media.
+
 KS ?= ks.cfg
 COPY_FILES ?= copy-files
 
