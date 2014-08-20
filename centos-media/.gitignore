@@ -1,4 +1,3 @@
 *.iso
 *.qcow2
 tmp
-copy-files/*

@@ -8,15 +8,17 @@
 # MIRROR := $(Mirror from which to download the image. This should be the
 #             entirety of the url, except for the filename ($(ISO_IN), above).)
 #
+# The variables KS and COPY_FILES need to be defined as well, but typically this
+# will be done by the user on the command line:
+#
+# KS := $(path to a kickstart file)
+# COPY_FILES := $(path to a directory to be copied to the iso).
+#
 # Additionally, make should be invoked from a directory containing the files:
 #
 # sha256sum.txt - sha256 checksum of $(ISO_IN)
 # isolinux.cfg - a version-specific isolinux.cfg, to be copied to the generated
 # media.
-
-KS ?= ks.cfg
-COPY_FILES ?= copy-files
-
 all: build
 
 fetch: $(ISO_IN)

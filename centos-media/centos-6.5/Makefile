@@ -1,3 +1,6 @@
+# Builds a custom CentOS 6.5 ISO. see ../README.md and the comments in
+# ../Makefile.common for more info.
+
 ISO_IN := CentOS-6.5-x86_64-minimal.iso
 ISO_OUT := centos-6.5-custom.iso
 # CentOS 6 doesn't actually care about the disk label, but CentOS 7 does, so we
