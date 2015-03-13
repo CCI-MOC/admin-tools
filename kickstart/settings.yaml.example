@@ -1,0 +1,10 @@
+---
+# Copy this to settings.yaml, and edit as appropriate.
+mirror: http://mirror.mit.edu/centos
+os_version: 7.0
+keyboard: us
+lang: en_US
+rootdisk: vda
+timezone: America/New_York
+sha512_rootpw: x # this will need to be changed to a sha512 encrypted password
+                 # for the root user.
