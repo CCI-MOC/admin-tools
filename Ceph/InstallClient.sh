@@ -5,4 +5,6 @@ sudo yum -y update
 sudo yum -y install http://download.ceph.com/rpm-luminous/el7/noarch/ceph-release-1-1.el7.noarch.rpm
 sudo yum -y install ceph-common
 clear
+tput bold
 echo Now copy ceph.conf and key from /etc/ceph/ on a ceph server to cleint /etc/ceph
+tput sgr0
