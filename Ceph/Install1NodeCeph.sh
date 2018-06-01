@@ -44,7 +44,9 @@ sudo ceph osd pool create bmi 32
 sudo ceph osd pool create cephfs 16
 sudo ceph osd pool create cephfsmeta 8
 until sudo ceph -s|grep 'pgs:     56 active+clean' &> /dev/null; do sleep 1;done
-sleep 5
+sudo ceph osd pool application enable bmi rbd
+sudo ceph osd pool application enable cephfs cephfs
+sudo ceph osd pool application enable cephfsmeta cephfs
 sudo ceph fs new cephfs cephfsmeta cephfs
 clear
 sudo ceph -s
