@@ -18,7 +18,7 @@ sudo pvdisplay | grep /dev/$dev &> /dev/null && echo Device $dev not empty, fix 
 sudo pvdisplay | grep /dev/$dev &> /dev/null && exit
 sudo yum -y update
 sudo yum -y install https://download.ceph.com/rpm-$release/el7/noarch/ceph-release-1-1.el7.noarch.rpm
-sudo yum -y install ceph-deploy ceph-mon ceph-osd ceph-mgr ceph-mds htop mc||exit
+sudo yum -y install ceph-deploy ceph-mon ceph-osd ceph-mgr ceph-mds ceph-radosgw htop mc||exit
 ipaddr=`sudo ip route get $(sudo ip route show 0.0.0.0/0 | grep -oP "via \K\S+") | grep -oP "src \K\S+"`
 uuid=`uuidgen`
 sudo grep $ipaddr /etc/hosts &> /dev/null || sudo sh -c "echo $ipaddr `hostname -s` >> /etc/hosts"
@@ -45,6 +45,7 @@ sudo ceph dashboard create-self-signed-cert  &> /dev/null
 sudo ceph dashboard set-login-credentials ceph ceph &> /dev/null
 sudo ceph-deploy --overwrite-conf mgr create `hostname -s`
 sudo ceph-deploy --overwrite-conf mds create `hostname -s`
+sudo ceph-deploy --overwrite-conf rgw create `hostname -s`
 sudo ceph-deploy --overwrite-conf osd create --data /dev/$dev `hostname -s`
 sudo ceph osd pool create bmi 32
 sudo ceph osd pool create cephfs 16
