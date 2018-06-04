@@ -41,12 +41,19 @@ osd_pool_default_size = 1
 
 sudo ceph-deploy --overwrite-conf mon create-initial
 sudo /bin/cp ceph.client.admin.keyring /etc/ceph/
-sudo ceph dashboard create-self-signed-cert  &> /dev/null
-sudo ceph dashboard set-login-credentials ceph ceph &> /dev/null
 sudo ceph-deploy --overwrite-conf mgr create `hostname -s`
 sudo ceph-deploy --overwrite-conf mds create `hostname -s`
 sudo ceph-deploy --overwrite-conf rgw create `hostname -s`
 sudo ceph-deploy --overwrite-conf osd create --data /dev/$dev `hostname -s`
+sudo ceph dashboard set-login-credentials ceph ceph &> /dev/null
+sudo ceph dashboard create-self-signed-cert  &> /dev/null
+ceph mgr module disable dashboard
+ceph mgr module enable dashboard
+sudo radosgw-admin user create --uid=sysadmin --display-name=sysadmin --system
+acckey=$(sudo radosgw-admin user info --uid=sysadmin | grep access_key|cut -d '"' -f 4)
+seckey=$(sudo radosgw-admin user info --uid=sysadmin | grep secret_key|cut -d '"' -f 4)
+sudo ceph dashboard set-rgw-api-access-key $acckey &>/dev/null
+sudo ceph dashboard set-rgw-api-secret-key $seckey &>/dev/null
 sudo ceph osd pool create bmi 32
 sudo ceph osd pool create cephfs 16
 sudo ceph osd pool create cephfsmeta 8
