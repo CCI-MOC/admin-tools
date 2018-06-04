@@ -57,7 +57,7 @@ sudo ceph dashboard set-rgw-api-secret-key $seckey &>/dev/null
 sudo ceph osd pool create bmi 32
 sudo ceph osd pool create cephfs 16
 sudo ceph osd pool create cephfsmeta 8
-until sudo ceph -s|grep 'pgs:     56 active+clean' &> /dev/null; do sleep 1;done
+until sudo ceph -s|grep 'pgs:     88 active+clean' &> /dev/null; do sleep 1;done
 sudo ceph osd pool application enable bmi rbd
 sudo ceph osd pool application enable cephfs cephfs
 sudo ceph osd pool application enable cephfsmeta cephfs
