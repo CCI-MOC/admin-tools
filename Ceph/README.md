@@ -1,5 +1,8 @@
 # Scripts to install ceph on 1 node(physical or VM) and client(s)
-Scripts default to the current latest relase - Mimic, to install Luminous specify the release as paramter: Install1NodeCeph.sh luminous or InstallClient.sh luminous. Older releases might work but this is not tested.
+Scripts default to the current latest relase - Mimic, to install Luminous specify the release as paramter:
+```Install1NodeCeph.sh luminous```
+```InstallClient.sh luminous.```
+Older releases might work but this is not tested.
 
 **Use CentOS 7. Install time can be greatly reduced if you run yum update in advance.**
 * Do not use if there are old (half)working ceph installation, reinstall OS first.
