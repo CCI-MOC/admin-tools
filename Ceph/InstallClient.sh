@@ -10,5 +10,5 @@ sudo yum -y install http://download.ceph.com/rpm-$release/el7/noarch/ceph-releas
 sudo yum -y install ceph-common
 clear
 tput bold
-echo Now copy ceph.conf and key from /etc/ceph/ on a ceph server to cleint /etc/ceph
+echo Now copy ceph.conf and key from /etc/ceph/ from a ceph server to cleint /etc/ceph
 tput sgr0
