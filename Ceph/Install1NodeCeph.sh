@@ -47,8 +47,8 @@ sudo ceph-deploy --overwrite-conf rgw create `hostname -s`
 sudo ceph-deploy --overwrite-conf osd create --data /dev/$dev `hostname -s`
 sudo ceph dashboard set-login-credentials ceph ceph &> /dev/null
 sudo ceph dashboard create-self-signed-cert  &> /dev/null
-ceph mgr module disable dashboard
-ceph mgr module enable dashboard
+sudo ceph mgr module disable dashboard
+sudo ceph mgr module enable dashboard
 sudo radosgw-admin user create --uid=sysadmin --display-name=sysadmin --system
 acckey=$(sudo radosgw-admin user info --uid=sysadmin | grep access_key|cut -d '"' -f 4)
 seckey=$(sudo radosgw-admin user info --uid=sysadmin | grep secret_key|cut -d '"' -f 4)
