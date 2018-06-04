@@ -1,3 +1,5 @@
+release=mimic
+if [ -z ${1+x} ]; then echo Will use default release - $release; else release=$1;echo Will use custom release - $release;fi
 sudo chkconfig firewalld off &> /dev/null
 sudo service firewlld stop &> /dev/null
 grep timeout /etc/yum.conf &> /dev/null || sudo sh -c 'echo "timeout=5" >> /etc/yum.conf'
@@ -13,7 +15,7 @@ sudo fdisk -l /dev/$dev|grep -iv disk|grep /dev/$dev &> /dev/null && exit
 sudo pvdisplay | grep /dev/$dev &> /dev/null && echo Device $dev not empty, fix and try again
 sudo pvdisplay | grep /dev/$dev &> /dev/null && exit
 sudo yum -y update
-sudo yum -y install https://download.ceph.com/rpm-luminous/el7/noarch/ceph-release-1-1.el7.noarch.rpm
+sudo yum -y install https://download.ceph.com/rpm-luminous/el7/noarch/ceph-${release}-1-1.el7.noarch.rpm
 sudo yum -y install ceph-deploy ceph-mon ceph-osd ceph-mgr ceph-mds htop mc||exit
 ipaddr=`sudo ip route get $(sudo ip route show 0.0.0.0/0 | grep -oP "via \K\S+") | grep -oP "src \K\S+"`
 uuid=`uuidgen`
