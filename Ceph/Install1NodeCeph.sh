@@ -35,7 +35,7 @@ rbd_default_features = 5
 [mon]
 mon_compact_on_start = true
 mon_allow_pool_delete = true
-mgr_initial_modules = dashboard
+mgr_initial_modules = dashboard status
 osd_pool_default_size = 1
 " >ceph.conf
 
@@ -55,4 +55,4 @@ sudo ceph fs new cephfs cephfsmeta cephfs
 clear
 sudo ceph -s
 sudo ceph df
-sudo ceph fs ls
+sudo ceph fs status
