@@ -41,6 +41,7 @@ osd_pool_default_size = 1
 
 sudo ceph-deploy --overwrite-conf mon create-initial
 sudo /bin/cp ceph.client.admin.keyring /etc/ceph/
+ceph dashboard set-login-credentials ceph ceph &> /dev/null
 sudo ceph-deploy --overwrite-conf mgr create `hostname -s`
 sudo ceph-deploy --overwrite-conf mds create `hostname -s`
 sudo ceph-deploy --overwrite-conf osd create --data /dev/$dev `hostname -s`
@@ -52,6 +53,7 @@ sudo ceph osd pool application enable bmi rbd
 sudo ceph osd pool application enable cephfs cephfs
 sudo ceph osd pool application enable cephfsmeta cephfs
 sudo ceph fs new cephfs cephfsmeta cephfs
+sleep 5
 clear
 sudo ceph -s
 sudo ceph df
