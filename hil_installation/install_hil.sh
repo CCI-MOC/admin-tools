@@ -15,7 +15,7 @@ sudo pip install .
 # copy hil config file and create a symbolic link
 sudo cp examples/hil.cfg /etc/hil.cfg
 sudo chown hil:hil /etc/hil.cfg
-sudo ln -s -f /etc/hil.cfg /var/lib/hil
+sudo ln -s -f /etc/hil.cfg /var/lib/hil/.
 
 # copy the hil wsgi file
 sudo mkdir -p /var/www/hil &> /dev/null

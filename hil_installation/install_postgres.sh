@@ -11,6 +11,6 @@ sudo systemctl enable postgresql
 
 sudo -u postgres createuser -r -d -P hil ||true
 
-sudo -u hil dropdb hil
+sudo -u hil dropdb hil ||true
 sudo -u hil createdb hil
 echo "Done installing postgres"
