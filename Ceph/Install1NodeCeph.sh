@@ -6,10 +6,12 @@ sudo chkconfig firewalld off &> /dev/null
 sudo service firewlld stop &> /dev/null
 grep timeout /etc/yum.conf &> /dev/null || sudo sh -c 'echo "timeout=5" >> /etc/yum.conf'
 grep options /etc/resolv.conf &> /dev/null || sudo sh -c 'echo "options single-request" >> /etc/resolv.conf'
-sudo yum -y install epel-release lvm2 virt-what deltarpm &> /dev/null||exit
+sudo yum -y install epel-release lvm2 virt-what pciutils deltarpm &> /dev/null||exit
 dev=sdb
 [ "`sudo virt-what`" == "kvm" ] && dev=vdb
 sudo virt-what | grep xen &> /dev/null && dev=xvdb
+sudo lspci | grep 'Elastic Network Adapter' &> /dev/null && dev=nvme1n1
+sudo lspci | grep 'Virtio SCSI' &> /dev/null && dev=sdb
 sudo ls -l /dev/$dev &> /dev/null || echo No device $dev, fix and then try again
 sudo ls -l /dev/$dev &> /dev/null || exit
 sudo fdisk -l /dev/$dev|grep -iv disk|grep /dev/$dev &> /dev/null && echo Device $dev not empty, fix and try again
