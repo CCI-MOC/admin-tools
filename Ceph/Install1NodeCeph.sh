@@ -6,7 +6,7 @@ sudo chkconfig firewalld off &> /dev/null
 sudo service firewlld stop &> /dev/null
 grep timeout /etc/yum.conf &> /dev/null || sudo sh -c 'echo "timeout=5" >> /etc/yum.conf'
 grep options /etc/resolv.conf &> /dev/null || sudo sh -c 'echo "options single-request" >> /etc/resolv.conf'
-sudo yum -y install epel-release lvm2 virt-what deltarpm&> /dev/null||exit
+sudo yum -y install epel-release lvm2 virt-what deltarpm &> /dev/null||exit
 dev=sdb
 [ "`sudo virt-what`" == "kvm" ] && dev=vdb
 sudo virt-what | grep xen &> /dev/null && dev=xvdb
