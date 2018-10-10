@@ -8,7 +8,7 @@ sudo sed -i "s|SELINUX=enforcing|SELINUX=permissive|g" /etc/selinux/config
 sudo useradd --system hil -d /var/lib/hil -m -r || true
 
 # git clone and install hil
-git clone https://github.com/cci-moc/hil ||exit 1
+git clone https://github.com/cci-moc/hil -b v0.4 ||exit 1
 cd hil
 sudo pip install .
 

@@ -1,0 +1,7 @@
+{
+	"DBType":     	"postgres",
+	"DBPath":     	"host=localhost port=5432 user=hil password=hello dbname=obmd sslmode=disable",
+	"ListenAddr": 	":8080",
+	"AdminToken": 	"71bdc4e464be6464027b438bb9f02fda"
+}
+

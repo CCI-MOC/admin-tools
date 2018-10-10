@@ -8,4 +8,4 @@ echo "(3/4) Install Postgres"
 echo "(4/4) Configure HIL for development"
 ./config_dev.sh ||exit 1
 
-echo "Finished everything"
+echo "Finished everything. Go run the obmd installer now"
