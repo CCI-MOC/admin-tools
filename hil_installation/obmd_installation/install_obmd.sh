@@ -1,8 +1,9 @@
 # Installing OBMd
 set -ex
 
-# Download OBMd v0.1, make it executable and place it in `/bin`
+sudo yum install -y wget
 
+# Download OBMd v0.1, make it executable and place it in `/bin`
 wget https://github.com/CCI-MOC/obmd/releases/download/v0.1/obmd
 chmod +x obmd
 sudo mv obmd /bin
