@@ -1,0 +1,16 @@
+[Unit]
+Description=OBM daemon for HIL
+After=network.target
+After=postgresql.service
+
+[Service]
+User=hil
+WorkingDirectory=/etc/obmd/
+ExecStart=/bin/obmd
+Type=simple
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
