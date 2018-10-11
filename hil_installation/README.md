@@ -11,7 +11,5 @@ variables to talk to HIL.
 
 Note: This only works on centos/RHEL.
 
-The script **does not** install OBMd. You can download the OBMd binary from github and run it.
-
-The config file it uses sets the database password to `hil`, so don't forget to change that.
+The config file it uses sets the database password to `hello`, so don't forget to change that.
 
