@@ -2,6 +2,7 @@
 ## Required
 * **Server must have 2 H(V)DDs - one for the operating system and one for ceph storage.**
 * **Before running the script make sure second block device is cleared - no existing partitions or LVM sigantures. If script complains hdd is not empty use wipefs to clear it and run it again.**
+* **Passwordless sudo for the account running the script**
 
 ## General
 * Do not use if there are old (half)working ceph installation attempts, wipe clean and reinstall OS first.
@@ -14,6 +15,8 @@
    ```Install1NodeCeph.sh luminous```
    ```InstallClient.sh luminous.```
 Older releases might work but this is not tested.
+
+* Code blocks below can be copy/pasted in ssh window and it should work with all defaults.
 
 ## RHEL7
 * 2018-11-20 Adding support for RHEL7 using MOC internal repos. For other locations use subscription manager to enable repos needed. For machines running on MOC networks run 
