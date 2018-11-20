@@ -9,9 +9,9 @@
   - **Luminous version runs on port 7000, http, no authentication is requred**
   - **Mimic version runs on port 8080, https, authentication is required. Script configures username and password as ceph**
 
-Scripts default to the current latest relase - Mimic, to install Luminous specify the release as paramter:
-```Install1NodeCeph.sh luminous```
-```InstallClient.sh luminous.```
+* Scripts default to the current latest relase - Mimic, to install Luminous specify the release as paramter:
+   ```Install1NodeCeph.sh luminous```
+   ```InstallClient.sh luminous.```
 Older releases might work but this is not tested.
 
 ## RHEL7
