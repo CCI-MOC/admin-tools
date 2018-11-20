@@ -5,8 +5,9 @@ tput sgr0
 sudo chkconfig firewalld off &> /dev/null
 sudo service firewlld stop &> /dev/null
 grep timeout /etc/yum.conf &> /dev/null || sudo sh -c 'echo "timeout=5" >> /etc/yum.conf'
-grep options /etc/resolv.conf &> /dev/null || sudo sh -c 'echo "options single-request" >> /etc/resolv.conf'
-sudo yum -y install epel-release lvm2 virt-what pciutils deltarpm &> /dev/null||exit
+#grep options /etc/resolv.conf &> /dev/null || sudo sh -c 'echo "options single-request" >> /etc/resolv.conf'
+sudo yum -y install lvm2 virt-what pciutils deltarpm &> /dev/null||exit
+grep 'Red Hat' /etc/redhat-release &> /dev/null || sudo yum -y install epel-release &> /dev/null || exit
 dev=sdb
 [ "`sudo virt-what`" == "kvm" ] && dev=vdb
 sudo virt-what | grep xen &> /dev/null && dev=xvdb
