@@ -56,6 +56,17 @@ grub2-mkconfig -o /etc/grub/grub2.cfg
 9. uninstall network manager `yum -y remove NetworkManager`
 10. `echo "export HISTCONTROL=ignoreboth" >> /root/.bash_profile`
 
+Stuff to copy paste:
+```
+rm -rf /etc/ssh/*key*
+grep dhclient /etc/rc.local || echo "dhclient ibft0" >> /etc/rc.local
+rm -rf /etc/hostname
+yum -y install deltarpm
+yum update
+yum -y remove NetworkManager
+echo "export HISTCONTROL=ignoreboth" >> /root/.bash_profile
+```
+
 Rados customization:
 
 ```
