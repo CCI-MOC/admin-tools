@@ -110,7 +110,7 @@ sed --in-place "/mpath.sh/d" /etc/rc.d/rc.local
 rm -rf /etc/mpath.sh && reboot
 '> /etc/mpath.sh
 chmod +x /etc/mpath.sh
-echo /etc/mpath.sh& >> /etc/rc.local
+echo /etc/mpath.sh\& >> /etc/rc.local
 chmod +x /etc/rc.local
 ```
 
