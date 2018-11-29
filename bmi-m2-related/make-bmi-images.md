@@ -92,7 +92,7 @@ Convert image to multipath:
 ```
 echo '
 grep golden /sys/firmware/ibft/target0/target-name && exit
-yum -y install device-mapper-multipath
+yum -y install device-mapper-multipath || poweroff
 mpathconf --enable --with_multipathd y
 echo "defaults {
         user_friendly_names yes
