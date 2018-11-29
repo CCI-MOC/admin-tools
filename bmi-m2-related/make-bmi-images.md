@@ -99,7 +99,7 @@ rm -rf /etc/ssh/*key*
 grep dhclient /etc/rc.local || echo "dhclient ibft0" >> /etc/rc.local
 rm -rf /etc/hostname
 yum -y install deltarpm device-mapper-multipath
-yum update
+yum update -y
 yum -y remove NetworkManager
 grep HISTCONTROL /root/.bash_profile || echo "export HISTCONTROL=ignoreboth" >> /root/.bash_profile
 ```
