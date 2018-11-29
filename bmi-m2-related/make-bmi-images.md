@@ -56,6 +56,9 @@ grub2-mkconfig -o /etc/grub/grub2.cfg
 9. uninstall network manager `yum -y remove NetworkManager`
 10. `echo "export HISTCONTROL=ignoreboth" >> /root/.bash_profile`
 
+
+Stuff to copy paste: 
+
 Monitoring customization:
 
 ```
@@ -90,7 +93,7 @@ chmod +x /etc/mpath.sh
 echo /etc/mpath.sh >> /etc/rc.local
 ```
 
-Stuff to copy paste after booting a golden imagre:
+After booting a golden image for edits:
 ```
 rm -rf /etc/ssh/*key*
 grep dhclient /etc/rc.local || echo "dhclient ibft0" >> /etc/rc.local
