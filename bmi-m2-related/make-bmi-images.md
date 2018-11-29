@@ -64,7 +64,7 @@ rm -rf /etc/hostname
 yum -y install deltarpm
 yum update
 yum -y remove NetworkManager
-echo "export HISTCONTROL=ignoreboth" >> /root/.bash_profile
+grep HISTCONTROL /root/.bash_profile || echo "export HISTCONTROL=ignoreboth" >> /root/.bash_profile
 ```
 
 Rados customization:
