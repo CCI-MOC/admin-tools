@@ -117,5 +117,6 @@ After booting a golden image for edits:
 rm -rf /etc/ssh/*key*
 > /root/.bash_history
 unset HISTFILE
+poweroff
 ```
 
