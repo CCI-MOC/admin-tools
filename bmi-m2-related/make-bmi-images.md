@@ -62,14 +62,14 @@ echo '
 grep golden /sys/firmware/ibft/target0/target-name && exit
 yum -y install device-mapper-multipath
 mpathconf --enable --with_multipathd y
-#echo "defaults {
-#        user_friendly_names yes
-#        find_multipaths yes
-#        failback immediate
-#}
-#blacklist {
-#}
-#" > /etc/multipath.conf
+echo "defaults {
+        user_friendly_names yes
+        find_multipaths yes
+        failback immediate
+}
+blacklist {
+}
+" > /etc/multipath.conf
 multipath -a /dev/`lsblk |grep /|cut -d "─" -f 2| cut -d " " -f 1|sed "s/[0-9]*//g"`
 dracut --force -H --add multipath
 sed --in-place "/mpath.sh/d" /etc/rc.d/rc.local
@@ -90,7 +90,7 @@ yum -y remove NetworkManager
 grep HISTCONTROL /root/.bash_profile || echo "export HISTCONTROL=ignoreboth" >> /root/.bash_profile
 ```
 
-Rados customization:
+Monitoring customization:
 
 ```
 yum -y install net-snmp wget
