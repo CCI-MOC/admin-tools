@@ -56,6 +56,17 @@ grub2-mkconfig -o /etc/grub/grub2.cfg
 9. uninstall network manager `yum -y remove NetworkManager`
 10. `echo "export HISTCONTROL=ignoreboth" >> /root/.bash_profile`
 
+Monitoring customization:
+
+```
+yum -y install net-snmp wget
+rm -rf /etc/snmp/snmpd.conf
+ wget http://config:mocconfig@mochat.massopen.cloud/config/kzn/snmpd.conf -O /etc/snmp/snmpd.conf
+chkconfig snmpd on
+service snmpd restart
+yum -y remove firewalld NetworkManager
+```
+
 Convert image to multipath:
 ```
 echo '
@@ -79,7 +90,7 @@ chmod +x /etc/mpath.sh
 echo /etc/mpath.sh >> /etc/rc.local
 ```
 
-Stuff to copy paste after modifying an image:
+Stuff to copy paste after booting a golden imagre:
 ```
 rm -rf /etc/ssh/*key*
 grep dhclient /etc/rc.local || echo "dhclient ibft0" >> /etc/rc.local
@@ -88,16 +99,5 @@ yum -y install deltarpm device-mapper-multipath
 yum update
 yum -y remove NetworkManager
 grep HISTCONTROL /root/.bash_profile || echo "export HISTCONTROL=ignoreboth" >> /root/.bash_profile
-```
-
-Monitoring customization:
-
-```
-yum -y install net-snmp wget
-rm -rf /etc/snmp/snmpd.conf
- wget http://config:mocconfig@mochat.massopen.cloud/config/kzn/snmpd.conf -O /etc/snmp/snmpd.conf
-chkconfig snmpd on
-service snmpd restart
-yum -y remove firewalld NetworkManager
 ```
 
