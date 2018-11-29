@@ -63,15 +63,6 @@ Genral:
 ```
 grep dhclient /etc/rc.local || echo "dhclient ibft0" >> /etc/rc.local
 rm -rf /etc/hostname
-yum -y install deltarpm device-mapper-multipath
-echo "defaults {
-        user_friendly_names yes
-        find_multipaths yes
-        failback immediate
-}
-blacklist {
-}
-" > /etc/multipath.conf
 yum update -y
 yum -y remove NetworkManager
 grep HISTCONTROL /root/.bash_profile || echo "export HISTCONTROL=ignoreboth" >> /root/.bash_profile
