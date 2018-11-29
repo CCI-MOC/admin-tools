@@ -93,10 +93,8 @@ echo "defaults {
 blacklist {
 }
 " > /etc/multipath.conf
-sleep 2
 multipath -a /dev/`lsblk |grep /|cut -d "─" -f 2| cut -d " " -f 1|sed "s/[0-9]*//g"`
-sleep 2
-dracut --force -H --add multipath
+dracut -f --add multipath
 sed --in-place "/mpath.sh/d" /etc/rc.d/rc.local
 rm -rf /etc/mpath.sh && reboot
 '> /etc/mpath.sh
