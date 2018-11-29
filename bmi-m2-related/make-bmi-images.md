@@ -59,6 +59,24 @@ grub2-mkconfig -o /etc/grub/grub2.cfg
 
 Stuff to copy paste: 
 
+Genral:
+```
+grep dhclient /etc/rc.local || echo "dhclient ibft0" >> /etc/rc.local
+rm -rf /etc/hostname
+yum -y install deltarpm device-mapper-multipath
+echo "defaults {
+        user_friendly_names yes
+        find_multipaths yes
+        failback immediate
+}
+blacklist {
+}
+" > /etc/multipath.conf
+yum update -y
+yum -y remove NetworkManager
+grep HISTCONTROL /root/.bash_profile || echo "export HISTCONTROL=ignoreboth" >> /root/.bash_profile
+```
+
 Monitoring customization:
 
 ```
@@ -91,16 +109,11 @@ rm -rf /etc/mpath.sh && reboot
 '> /etc/mpath.sh
 chmod +x /etc/mpath.sh
 echo /etc/mpath.sh >> /etc/rc.local
+chmod +x /etc/rc.local
 ```
 
 After booting a golden image for edits:
 ```
 rm -rf /etc/ssh/*key*
-grep dhclient /etc/rc.local || echo "dhclient ibft0" >> /etc/rc.local
-rm -rf /etc/hostname
-yum -y install deltarpm device-mapper-multipath
-yum update -y
-yum -y remove NetworkManager
-grep HISTCONTROL /root/.bash_profile || echo "export HISTCONTROL=ignoreboth" >> /root/.bash_profile
 ```
 
