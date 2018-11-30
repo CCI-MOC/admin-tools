@@ -82,6 +82,7 @@ yum -y remove firewalld NetworkManager
 Convert image to multipath:
 ```
 echo '
+set -ex
 grep golden /sys/firmware/ibft/target0/target-name && exit
 yum -y install device-mapper-multipath || poweroff
 mpathconf --enable --with_multipathd y
