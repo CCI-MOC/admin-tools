@@ -81,9 +81,7 @@ yum -y remove firewalld NetworkManager
 
 Convert image to multipath:
 ```
-service crond stop
 echo '
-set -x
 service crond stop
 grep golden /sys/firmware/ibft/target0/target-name && exit
 yum -y install device-mapper-multipath || poweroff
@@ -103,7 +101,7 @@ rm -rf /etc/mpath.sh && reboot
 '> /etc/mpath.sh
 chmod +x /etc/mpath.sh
 chmod +x /etc/rc.local
-echo '*  *  *  *  * root  /etc/mpath.sh' >> /etc/crontab
+echo '@reboot root  /etc/mpath.sh' >> /etc/crontab
 ```
 
 After booting a golden image for edits:
