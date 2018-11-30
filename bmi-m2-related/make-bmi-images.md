@@ -77,6 +77,7 @@ rm -rf /etc/snmp/snmpd.conf
 chkconfig snmpd on
 service snmpd restart
 yum -y remove firewalld NetworkManager
+
 ```
 
 Convert image to multipath:
@@ -102,6 +103,7 @@ rm -rf /etc/mpath.sh && reboot
 chmod +x /etc/mpath.sh
 chmod +x /etc/rc.local
 echo '@reboot root  /etc/mpath.sh' >> /etc/crontab
+
 ```
 
 After booting a golden image for edits:
@@ -111,4 +113,3 @@ rm -rf /etc/ssh/*key*
 unset HISTFILE
 poweroff
 ```
-
