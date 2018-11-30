@@ -87,6 +87,7 @@ service crond stop
 grep golden /sys/firmware/ibft/target0/target-name && exit
 yum -y install device-mapper-multipath || poweroff
 mpathconf --enable --with_multipathd y
+sleep 2
 echo "defaults {
         user_friendly_names yes
         find_multipaths yes
@@ -98,7 +99,7 @@ blacklist {
 multipath -a /dev/`lsblk |grep /|cut -d "─" -f 2| cut -d " " -f 1|sed "s/[0-9]*//g"`
 dracut -f --add multipath
 sed --in-place "/mpath.sh/d" /etc/crontab
-rm -rf /etc/mpath.sh && reboot
+sleep 2 && rm -rf /etc/mpath.sh && reboot
 '> /etc/mpath.sh
 chmod +x /etc/mpath.sh
 chmod +x /etc/rc.local
