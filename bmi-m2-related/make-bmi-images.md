@@ -80,7 +80,7 @@ yum -y remove firewalld NetworkManager
 
 ```
 
-Convert image to multipath:
+Convert image to multipath: ***Do NOT use with 2 servers, this is for 1 HA server and multiple connections to it***
 ```
 echo '
 service crond stop
@@ -113,4 +113,40 @@ rm -rf /etc/ssh/*key*
 > /root/.bash_history
 unset HISTFILE
 poweroff
+```
+
+Failover TGTD
+```
+chkconfig tgtd off
+yum install corosync pcs pacemaker -y
+systemctl start pcsd
+
+
+pass=L>opjmd0sgj45445
+vip=10.254.0.3
+node1=kzn-vbmi01stack
+node2=kzn-vbmi02stack
+
+
+echo $pass | passwd --stdin hacluster 
+pcs cluster auth -u hacluster -p $pass $node1 $node2 
+pcs cluster setup --name bmicluster $node1 $node2 --force 
+sleep 2
+pcs cluster start --all 
+sleep 2
+pcs property set stonith-enabled=false 
+sleep 2
+pcs property set no-quorum-policy=ignore 
+sleep 2
+pcs resource create virtual_ip ocf:heartbeat:IPaddr2 ip=$vip cidr_netmask=32 op monitor interval=5s 
+sleep 2
+pcs resource create tgtd systemd:tgtd
+sleep 2
+pcs constraint colocation add tgtd virtual_ip INFINITY --force 
+sleep 2
+
+pcs cluster stop --all 
+pcs cluster start --all 
+sleep 5
+
 ```
