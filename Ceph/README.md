@@ -1,6 +1,6 @@
 # Scripts to install ceph on 1 node(physical or VM) and client(s)
 ## Required
-* CentOS 7 or RHEL 7
+* **CentOS 7 or RHEL 7**
 * **Server must have 2 H(V)DDs - one for the operating system and one for ceph storage.**
 * **Before running the script make sure second block device is cleared - no existing partitions or LVM sigantures. If script complains hdd is not empty use wipefs to clear it and run it again.**
 * **Passwordless sudo for the account running the script**
