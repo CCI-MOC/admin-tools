@@ -19,9 +19,14 @@ Older releases might work but this is not tested.
 
 * **Copy and paste code blocks below to run with default release**
 
-## RHEL 7
-* *2018-11-20 Adding support for RHEL7 using MOC internal repos. For other locations use subscription manager to enable repos needed. For machines running on MOC networks:* 
-```sudo curl -o /etc/yum.repos.d/epel7local.repo http://mochat.massopen.cloud/repos/epel7local.repo ; sudo curl -o /etc/yum.repos.d/rhel7local.repo http://mochat.massopen.cloud/repos/rhel7local.repo;sudo yum -y install git deltarpm ; git clone https://github.com/CCI-MOC/admin-tools;./admin-tools/Ceph/Install1NodeCeph.sh```
 
 ## CentOS 7.
 ```sudo yum -y install git deltarpm ; git clone https://github.com/CCI-MOC/admin-tools;./admin-tools/Ceph/Install1NodeCeph.sh```
+
+## RHEL 7
+* *Support for RHEL7 using MOC internal repos only. For other locations use subscription manager to enable repos needed. For machines running on MOC networks only:* 
+```sudo curl -o /etc/yum.repos.d/epel7local.repo http://mochat.massopen.cloud/repos/epel7local.repo ; sudo curl -o /etc/yum.repos.d/rhel7local.repo http://mochat.massopen.cloud/repos/rhel7local.repo;sudo yum -y install git deltarpm ; git clone https://github.com/CCI-MOC/admin-tools;./admin-tools/Ceph/Install1NodeCeph.sh```
+
+## Prometheus/Grafana
+* After successful install (ceph -s reporst HEALTH_OK) Prometheus/Grafana (listenes on port 3000 admin,admin) can be added by running
+```./admin-tools/Ceph/InstallPrometheusGrafana.sh```
