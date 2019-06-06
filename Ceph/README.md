@@ -10,9 +10,9 @@
 * Install time can be greatly reduced if you run yum update in advance. 
 * **Ceph Dashboard**
   - **Luminous version runs on port 7000, http, no authentication is requred**
-  - **Mimic version runs on port 8443, https, authentication is required. Script configures username and password as ceph**
+  - **Mimic/later version runs on port 8443, https, authentication is required. Script configures username and password as ceph**
 
-* Scripts default to the current latest relase - Mimic, to install Luminous specify the release as paramter:
+* Scripts default to the current latest relase - Nautilus, to install Mimic/Luminous specify the release as paramter:
    ```Install1NodeCeph.sh luminous```
    ```InstallClient.sh luminous.```
 Older releases might work but this is not tested.
@@ -28,5 +28,5 @@ Older releases might work but this is not tested.
 ```sudo curl -o /etc/yum.repos.d/epel7local.repo http://mochat.massopen.cloud/repos/epel7local.repo ; sudo curl -o /etc/yum.repos.d/rhel7local.repo http://mochat.massopen.cloud/repos/rhel7local.repo;sudo yum -y install git deltarpm ; git clone https://github.com/CCI-MOC/admin-tools;./admin-tools/Ceph/Install1NodeCeph.sh```
 
 ## Prometheus/Grafana
-* After successful install (ceph -s reporst HEALTH_OK) Prometheus/Grafana (listenes on port 3000 admin,admin) can be added by running
+* After successful install (ceph -s reports HEALTH_OK) Prometheus/Grafana (listens on port 3000 admin,admin) can be added by running
 ```./admin-tools/Ceph/InstallPrometheusGrafana.sh```
