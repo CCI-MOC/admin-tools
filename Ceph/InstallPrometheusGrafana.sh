@@ -3,9 +3,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 sudo ceph mgr module enable prometheus
 
 curl -s https://packagecloud.io/install/repositories/prometheus-rpm/release/script.rpm.sh | sudo bash
-sudo yum -y install prometheus2
+sudo yum -y install prometheus2 node_exporter
 sudo /bin/cp $DIR/conf/prometheus/prometheus.yml /etc/prometheus/
-sudo systemctl enable --now prometheus node_exporter
+sudo systemctl enable --now prometheus
+sudo systemctl enable --now node_exporter
 
 sudo yum -y install initscripts urw-fonts
 sudo yum -y install https://dl.grafana.com/oss/release/grafana-6.2.2-1.x86_64.rpm
