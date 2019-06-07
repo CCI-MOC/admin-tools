@@ -28,5 +28,7 @@ Older releases might work but this is not tested.
 ```sudo curl -o /etc/yum.repos.d/epel7local.repo http://mochat.massopen.cloud/repos/epel7local.repo ; sudo curl -o /etc/yum.repos.d/rhel7local.repo http://mochat.massopen.cloud/repos/rhel7local.repo;sudo yum -y install git deltarpm ; git clone https://github.com/CCI-MOC/admin-tools;./admin-tools/Ceph/Install1NodeCeph.sh```
 
 ## Prometheus/Grafana
-* After successful install (ceph -s reports HEALTH_OK) Prometheus/Grafana (listens on port 3000 admin,admin) can be added by running
+* After successful install (ceph -s reports HEALTH_OK) Prometheus/Grafanacan be added by running:
 ```./admin-tools/Ceph/InstallPrometheusGrafana.sh```
+Grafana listens on port 3000 admin,admin
+Prometheus listens on port 9090, it will have all metrics, some of which might not be in Grafana dashboard
