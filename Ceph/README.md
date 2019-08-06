@@ -29,4 +29,4 @@ Older releases might work but this is not tested.
 
 ## Prometheus/Grafana
 * After successful install (ceph -s reports HEALTH_OK) Prometheus/Grafana can be added by running:
-```./admin-tools/Ceph/InstallPrometheusGrafana.sh``` Grafana listens on port 3000 admin,admin. Prometheus listens on port 9090, it will have all metrics collected, some of which might not be in Grafana dashboards
+```./admin-tools/Ceph/InstallPrometheusGrafana.sh``` Grafana listens on port 3000 admin,admin. Node exporter listens on port 9090, PRMETHEUS HOST METRICS ONLY.
