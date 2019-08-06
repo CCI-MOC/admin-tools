@@ -9,7 +9,7 @@ sudo systemctl enable --now prometheus
 sudo systemctl enable --now node_exporter
 
 sudo yum -y install initscripts urw-fonts
-sudo yum -y install https://dl.grafana.com/oss/release/grafana-6.2.2-1.x86_64.rpm
+sudo yum -y install https://dl.grafana.com/oss/release/grafana-6.3.0-1.x86_64.rpm
 sudo grafana-cli plugins install vonage-status-panel
 sudo grafana-cli plugins install grafana-piechart-panel
 sudo /bin/cp $DIR/conf/grafana/grafana.ini /etc/grafana/
