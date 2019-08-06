@@ -14,6 +14,8 @@ sudo grafana-cli plugins install vonage-status-panel
 sudo grafana-cli plugins install grafana-piechart-panel
 sudo /bin/cp $DIR/conf/grafana/grafana.ini /etc/grafana/
 sudo /bin/cp $DIR/conf/grafana/grafana.db /var/lib/grafana
+sudo chown grafana:grafana /var/lib/grafana/grafana.db
+
 sudo systemctl enable --now grafana-server
 
 sudo ceph dashboard set-grafana-api-url http://localhost:3000
