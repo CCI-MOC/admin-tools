@@ -8,8 +8,19 @@ sudo /bin/cp $DIR/conf/prometheus/prometheus.yml /etc/prometheus/
 sudo systemctl enable --now prometheus
 sudo systemctl enable --now node_exporter
 
+echo '[grafana]
+name=grafana
+baseurl=https://packages.grafana.com/oss/rpm
+repo_gpgcheck=1
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.grafana.com/gpg.key
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt'
+> /etc/yum.repos.d/grafana.repo
+
 sudo yum -y install initscripts urw-fonts
-sudo yum -y install https://dl.grafana.com/oss/release/grafana-6.3.0-1.x86_64.rpm
+sudo yum -y install grafana
 sudo grafana-cli plugins install vonage-status-panel
 sudo grafana-cli plugins install grafana-piechart-panel
 sudo /bin/cp $DIR/conf/grafana/grafana.ini /etc/grafana/
