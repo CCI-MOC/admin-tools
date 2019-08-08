@@ -1,0 +1,7 @@
+{
+	"tftp_server": "A.B.C.D",
+	"switches": [
+		{"hostname": "A.B.C.D", "username": "admin", "password": "password", "switch_type": "vdx6740"},
+		{"hostname": "A.B.C.D", "username": "admin", "password": "password", "switch_type": "icx6610"}
+	]
+}
