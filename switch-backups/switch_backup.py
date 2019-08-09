@@ -23,7 +23,6 @@ def setup_logging(name, logfile):
 
 def login(hostname, username, password):
     """Login to the switch and return the console with the prompt at `#`"""
-    print("\nlogging into: " + hostname)
     try_again = True
     alternatives = [r'[\r\n]+.+#',
                     "Permission denied",
@@ -34,9 +33,6 @@ def login(hostname, username, password):
 
     console = pexpect.spawn("ssh {}@{}".format(username, hostname))
     outcome = console.expect(alternatives, timeout=60)
-    print(outcome)
-    print("1. console.before: " + console.before)
-    print("1. console.after: " + console.after)
     while outcome:
 
         if outcome == 1:
@@ -69,29 +65,20 @@ def login(hostname, username, password):
             return
 
         outcome = console.expect(alternatives, timeout=60)
-        print(outcome)
-        print("2. console.before: " + console.before)
-        print("2. console.after: " + console.after)
 
     return console
 
 
 def run_commands(console, commands):
     """Run commands on a switch using console"""
-    print("\nin run_commands")
     for command in commands:
         console.sendline(command)
         console.expect("#", timeout=400)
-        print("3. console.before: " + console.before)
-        print("3. console.after: " + console.after)
 
 
 def logout(console):
     """Logout of the switch"""
-    print("\nin logout")
     console.sendline('exit')
-    print("4. console.before: " + console.before)
-    print("4. console.after: " + console.after)
     alternatives = [pexpect.EOF, '>']
     if console.expect(alternatives, timeout=60):
         console.sendline('exit')
@@ -129,7 +116,6 @@ def main():
     }
 
     for switch in CONFIG["switches"]:
-        print("*********************************")
         hostname = switch["hostname"]
         username = switch["username"]
         password = switch["password"]
@@ -159,7 +145,6 @@ def main():
                 command = commands[switch_type].format(tftp_server, filename)
                 run_commands(console, [command])
                 logout(console)
-            print("processed {}".format(hostname))
         except pexpect.exceptions.TIMEOUT as error:
             logger.error("\nHost %s timed out", hostname)
             logger.exception(error)
