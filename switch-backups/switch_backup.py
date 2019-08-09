@@ -3,6 +3,8 @@
 import json
 import logging
 import logging.handlers
+import tarfile
+import os
 from datetime import datetime
 import pexpect
 
@@ -66,6 +68,24 @@ def run_command(hostname, username, password, command):
     console.close()
 
 
+def backup_cumulus(hostname, username, password, filename):
+    """This method is for the cumulus switch because it's weird in the way
+    it works"""
+    files = '"/etc/network/interfaces /etc/cumulus/ports.conf /etc/frr/daemons /etc/frr/frr.conf /tmp/"'
+    console = pexpect.spawn("scp {}@{}:{}".format(username, hostname, files))
+    console.expect("[Pp]assword:*")
+    console.sendline(password)
+
+    archive_name = "var/lib/tftpboot/" + filename + ".gz"
+
+    archive = tarfile.open(archive_name, "w:gz")
+    archive.add("/tmp/interfaces")
+    archive.add("/tmp/ports.conf")
+    archive.add("/tmp/daemons")
+    archive.add("/tmp/frr.conf")
+    archive.close()
+
+
 def main():
     """Main man"""
 
@@ -79,6 +99,7 @@ def main():
     }
 
     for switch in CONFIG["switches"]:
+
         hostname = switch["hostname"]
         username = switch["username"]
         password = switch["password"]
@@ -87,10 +108,12 @@ def main():
         filename = "config" + \
             "_{}_{}".format(hostname, datetime.now().strftime("%a"))
 
-        command = commands[switch_type].format(tftp_server, filename)
-        print(command)
         try:
-            run_command(hostname, username, password, command)
+            if switch_type == "cumulus":
+                backup_cumulus(hostname, username, password, filename)
+            else:
+                command = commands[switch_type].format(tftp_server, filename)
+                run_command(hostname, username, password, command)
         except pexpect.exceptions.TIMEOUT as error:
             logger.error("\nHost %s timed out", hostname)
             logger.exception(error)
