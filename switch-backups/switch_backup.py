@@ -4,7 +4,6 @@ import json
 import logging
 import logging.handlers
 import tarfile
-import os
 from datetime import datetime
 import pexpect
 
@@ -22,48 +21,79 @@ def setup_logging(name, logfile):
     return new_logger
 
 
-def run_command(hostname, username, password, command):
-    """Run command on a switch"""
+def login(hostname, username, password):
+    """Login to the switch and return the console with the prompt at `#`"""
+    print("\nlogging into: " + hostname)
+    try_again = True
+    alternatives = [r'[\r\n]+.+#',
+                    "Permission denied",
+                    "[Pp]assword: *",
+                    ">",
+                    "(ibmnos-cli/iscli):*",
+                    "Connection reset by peer\r\r\n"]
 
-    # 1. Begin login process
     console = pexpect.spawn("ssh {}@{}".format(username, hostname))
-    alternatives = ["Permission denied",
-                    "Connection reset by peer\r\r\n", "[Pp]assword:*"]
-    outcome = console.expect(alternatives)
-    if outcome == 0:
-        logger.error("Permission denied for %s", hostname)
-        console.close()
-        return
-    elif outcome == 1:
-        logger.error("Connection reset by: %s", hostname)
-        logger.error("console.before: %s", console.before)
-        logger.error("console.after: %s", console.after)
-        console.close()
-        return
-    elif outcome == 2:
-        console.sendline(password)
+    outcome = console.expect(alternatives, timeout=60)
+    print(outcome)
+    print("1. console.before: " + console.before)
+    print("1. console.after: " + console.after)
+    while outcome:
 
-    alternatives = [">", "(ibmnos-cli/iscli):*", "#"]
-    outcome = console.expect(alternatives)
+        if outcome == 1:
+            logger.error("Permission denied for %s", hostname)
+            console.close()
+            return
 
-    if outcome == 0:
-        console.sendline("enable")
-        console.expect("#")
+        elif outcome == 2:
+            console.sendline(password)
 
-    if outcome == 1:
-        console.sendline("iscli")
-        console.sendline()
-        console.sendline("enable")
-        console.expect("#")
+        elif outcome == 3:
+            console.sendline("enable")
 
-    # 2. Successful login. Attempt to run the command now
-    console.sendline(command)
-    console.expect("#", timeout=400)
+        elif outcome == 4:
+            console.sendline("iscli")
+            console.sendline()
 
-    # 3. Logout process begins.
+        elif outcome == 5 and try_again:
+            logger.warning("Connection reset by: %s", hostname)
+            logger.warning("console.before: %s", console.before)
+            logger.warning("console.after: %s", console.after)
+            console = pexpect.spawn("ssh {}@{}".format(username, hostname))
+            try_again = False
+
+        elif outcome == 5 and not try_again:
+            logger.error("Connection reset by: %s", hostname)
+            logger.error("console.before: %s", console.before)
+            logger.error("console.after: %s", console.after)
+            console.close()
+            return
+
+        outcome = console.expect(alternatives, timeout=60)
+        print(outcome)
+        print("2. console.before: " + console.before)
+        print("2. console.after: " + console.after)
+
+    return console
+
+
+def run_commands(console, commands):
+    """Run commands on a switch using console"""
+    print("\nin run_commands")
+    for command in commands:
+        console.sendline(command)
+        console.expect("#", timeout=400)
+        print("3. console.before: " + console.before)
+        print("3. console.after: " + console.after)
+
+
+def logout(console):
+    """Logout of the switch"""
+    print("\nin logout")
     console.sendline('exit')
+    print("4. console.before: " + console.before)
+    print("4. console.after: " + console.after)
     alternatives = [pexpect.EOF, '>']
-    if console.expect(alternatives):
+    if console.expect(alternatives, timeout=60):
         console.sendline('exit')
     console.close()
 
@@ -99,7 +129,7 @@ def main():
     }
 
     for switch in CONFIG["switches"]:
-
+        print("*********************************")
         hostname = switch["hostname"]
         username = switch["username"]
         password = switch["password"]
@@ -109,11 +139,27 @@ def main():
             "_{}_{}".format(hostname, datetime.now().strftime("%a"))
 
         try:
+
             if switch_type == "cumulus":
                 backup_cumulus(hostname, username, password, filename)
+
+            elif switch_type == "melanox":
+                console = login(hostname, username, password)
+                mlx_commands = ["config terminal",
+                                "configuration text file rconfig delete",
+                                "configuration text generate active running save rconfig",
+                                "configuration text file rconfig upload",
+                                "configuration text file rconfig upload tftp://{}/{}".format(
+                                    tftp_server, filename)]
+                run_commands(console, mlx_commands)
+                logout(console)
+
             else:
+                console = login(hostname, username, password)
                 command = commands[switch_type].format(tftp_server, filename)
-                run_command(hostname, username, password, command)
+                run_commands(console, [command])
+                logout(console)
+            print("processed {}".format(hostname))
         except pexpect.exceptions.TIMEOUT as error:
             logger.error("\nHost %s timed out", hostname)
             logger.exception(error)
