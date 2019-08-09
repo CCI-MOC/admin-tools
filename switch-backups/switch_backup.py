@@ -148,9 +148,9 @@ def main():
                 mlx_commands = ["config terminal",
                                 "configuration text file rconfig delete",
                                 "configuration text generate active running save rconfig",
-                                "configuration text file rconfig upload",
                                 "configuration text file rconfig upload tftp://{}/{}".format(
-                                    tftp_server, filename)]
+                                    tftp_server, filename),
+                                "exit"]
                 run_commands(console, mlx_commands)
                 logout(console)
 
