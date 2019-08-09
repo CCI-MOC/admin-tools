@@ -71,12 +71,12 @@ def run_command(hostname, username, password, command):
 def backup_cumulus(hostname, username, password, filename):
     """This method is for the cumulus switch because it's weird in the way
     it works"""
-    files = '"/etc/network/interfaces /etc/cumulus/ports.conf /etc/frr/daemons /etc/frr/frr.conf /tmp/"'
+    files = """'/etc/network/interfaces /etc/cumulus/ports.conf /etc/frr/daemons /etc/frr/frr.conf' /tmp/"""
     console = pexpect.spawn("scp {}@{}:{}".format(username, hostname, files))
     console.expect("[Pp]assword:*")
     console.sendline(password)
 
-    archive_name = "var/lib/tftpboot/" + filename + ".gz"
+    archive_name = "/var/lib/tftpboot/" + filename + ".gz"
 
     archive = tarfile.open(archive_name, "w:gz")
     archive.add("/tmp/interfaces")
