@@ -157,8 +157,6 @@ def main():
             logger.error("Permission denied for %s", hostname)
         except ConnectionFailed:
             logger.error("Connection reset by: %s", hostname)
-            logger.error("console.before: %s", console.before)
-            logger.error("console.after: %s", console.after)
 
 
 if __name__ == "__main__":
