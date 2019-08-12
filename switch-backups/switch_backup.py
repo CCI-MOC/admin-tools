@@ -131,7 +131,7 @@ def main():
             if switch_type == "cumulus":
                 backup_cumulus(hostname, username, password, filename)
 
-            elif switch_type == "melanox":
+            elif switch_type == "mellanox":
                 console = login(hostname, username, password)
                 mlx_commands = ["config terminal",
                                 "configuration text file rconfig delete",
