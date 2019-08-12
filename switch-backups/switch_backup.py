@@ -8,6 +8,15 @@ from datetime import datetime
 import pexpect
 
 
+class ConnectionDenied(Exception):
+    """Error indicating that permission was denied when trying to ssh"""
+
+
+class ConnectionFailed(Exception):
+    """Error indicating that a connection could not be established due to
+    connectivity/network issues"""
+
+
 def setup_logging(name, logfile):
     """Setup logger with some custom formatting"""
     formatter = logging.Formatter(fmt='%(asctime)s %(levelname)-8s %(message)s',
@@ -36,9 +45,8 @@ def login(hostname, username, password):
     while outcome:
 
         if outcome == 1:
-            logger.error("Permission denied for %s", hostname)
             console.close()
-            return
+            raise ConnectionDenied("Permission denied")
 
         elif outcome == 2:
             console.sendline(password)
@@ -51,18 +59,12 @@ def login(hostname, username, password):
             console.sendline()
 
         elif outcome == 5 and try_again:
-            logger.warning("Connection reset by: %s", hostname)
-            logger.warning("console.before: %s", console.before)
-            logger.warning("console.after: %s", console.after)
             console = pexpect.spawn("ssh {}@{}".format(username, hostname))
             try_again = False
 
         elif outcome == 5 and not try_again:
-            logger.error("Connection reset by: %s", hostname)
-            logger.error("console.before: %s", console.before)
-            logger.error("console.after: %s", console.after)
             console.close()
-            return
+            raise ConnectionFailed("connectivity/network issue")
 
         outcome = console.expect(alternatives, timeout=60)
 
@@ -151,6 +153,12 @@ def main():
         except pexpect.exceptions.EOF as error:
             logger.error("\nFailed to connect to %s", hostname)
             logger.exception(error)
+        except ConnectionDenied:
+            logger.error("Permission denied for %s", hostname)
+        except ConnectionFailed:
+            logger.error("Connection reset by: %s", hostname)
+            logger.error("console.before: %s", console.before)
+            logger.error("console.after: %s", console.after)
 
 
 if __name__ == "__main__":
