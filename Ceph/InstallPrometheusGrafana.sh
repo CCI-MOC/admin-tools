@@ -16,8 +16,8 @@ enabled=1
 gpgcheck=1
 gpgkey=https://packages.grafana.com/gpg.key
 sslverify=1
-sslcacert=/etc/pki/tls/certs/ca-bundle.crt'
-> /etc/yum.repos.d/grafana.repo
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+'> /etc/yum.repos.d/grafana.repo
 
 sudo yum -y install initscripts urw-fonts
 sudo yum -y install grafana
