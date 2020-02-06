@@ -8,7 +8,7 @@ sudo /bin/cp $DIR/conf/prometheus/prometheus.yml /etc/prometheus/
 sudo systemctl enable --now prometheus
 sudo systemctl enable --now node_exporter
 
-sudo echo '[grafana]
+sudo sh -c "echo '[grafana]
 name=grafana
 baseurl=https://packages.grafana.com/oss/rpm
 repo_gpgcheck=1
@@ -17,7 +17,7 @@ gpgcheck=1
 gpgkey=https://packages.grafana.com/gpg.key
 sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
-'> /etc/yum.repos.d/grafana.repo
+'> /etc/yum.repos.d/grafana.repo"
 
 sudo yum -y install initscripts urw-fonts
 sudo yum -y install grafana
