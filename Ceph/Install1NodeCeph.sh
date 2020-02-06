@@ -36,6 +36,8 @@ auth_service_required = cephx
 auth_client_required = cephx
 max_open_files = 131072
 rbd_default_features = 5
+osd_pool_default_size = 1
+
 [mon]
 mon_compact_on_start = true
 mon_allow_pool_delete = true
