@@ -8,7 +8,7 @@ sudo /bin/cp $DIR/conf/prometheus/prometheus.yml /etc/prometheus/
 sudo systemctl enable --now prometheus
 sudo systemctl enable --now node_exporter
 
-echo '[grafana]
+sudo echo '[grafana]
 name=grafana
 baseurl=https://packages.grafana.com/oss/rpm
 repo_gpgcheck=1
