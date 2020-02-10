@@ -22,8 +22,7 @@ sudo pvdisplay | grep /dev/$dev &> /dev/null && exit
 sudo yum -y install https://download.ceph.com/rpm-$release/el7/noarch/ceph-release-1-1.el7.noarch.rpm
 sudo yum -y remove firewalld
 sudo yum -y update
-sudo yum -y install ceph-deploy ceph-mon ceph-osd ceph-mgr ceph-mds ceph-radosgw htop mc||exit
-sudo yum -y install ceph-mgr-dashboard
+sudo yum -y install ceph-mgr-dashboard ceph-deploy ceph-mon ceph-osd ceph-mgr ceph-mds ceph-radosgw htop mc||exit
 ipaddr=`sudo ip route get $(sudo ip route show 0.0.0.0/0 | grep -oP "via \K\S+") | grep -oP "src \K\S+"`
 uuid=`uuidgen`
 sudo grep $ipaddr /etc/hosts &> /dev/null || sudo sh -c "echo $ipaddr `hostname -s` >> /etc/hosts"
