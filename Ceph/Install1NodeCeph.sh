@@ -2,8 +2,6 @@ release=nautilus
 tput bold
 if [ -z ${1+x} ]; then echo Will use default release - $release; else release=$1;echo Will use custom release - $release;fi
 tput sgr0
-sudo chkconfig firewalld off &> /dev/null
-sudo service firewlld stop &> /dev/null
 grep timeout /etc/yum.conf &> /dev/null || sudo sh -c 'echo "timeout=5" >> /etc/yum.conf'
 #grep options /etc/resolv.conf &> /dev/null || sudo sh -c 'echo "options single-request" >> /etc/resolv.conf'
 sudo yum -y install lvm2 virt-what pciutils deltarpm &> /dev/null||exit
