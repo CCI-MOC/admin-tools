@@ -5,14 +5,14 @@ This document describes how to get around the problems that I encountered when s
 I followed the [upstream documentation](https://docs.ceph.com/docs/master/rbd/iscsi-target-cli/), and will describe the issues and how to solve them. This is only good for test environments.
 
 
-1. Deploy a ceph cluster
+## Deploy a ceph cluster
 
 You can use the `Install1NodeCeph.sh` script to setup a test cluster.
 
 In my test setup, I had 3 hosts `ceph1`, `ceph2`, `ceph3`. I ran the install script on `ceph1`, and then used `ceph-deploy` from that host to install ceph packages on `ceph2` and `ceph3`.
 After that, you can use `ceph-deploy` to use OSDs on `ceph2` and `ceph3`.
 
-2. Update kernel
+## Update kernel
 
 The official docs require a kernel > 4.16. I installed 4.4 LTS kernel but that didn't work. It failed to allocate LUNs for my RBD disks (step 5 under "Configuring" section of the official docs). 
 
@@ -27,7 +27,7 @@ I ended up using the mainline kernel 5.5 to get around it.
 
 https://www.howtoforge.com/tutorial/how-to-upgrade-kernel-in-centos-7-server/
 
-3. Install packages
+## Install packages
 
 `tagetcli` and `python-rtslib` are easy to find, so just yum install those.
 
@@ -44,7 +44,7 @@ wget https://download.ceph.com/ceph-iscsi/3/rpm/el7/ceph-iscsi.repo
 yum install ceph-iscsi -y
 ```
 
-4. Follow the rest of official documentation
+## Follow the rest of official documentation
  
 One exception: When you try to create ceph gateways (Step 3 under "Configuring" section) use the local hostname for the first gateway. 
 
