@@ -1,4 +1,5 @@
 release=nautilus
+osver=grep -i version_id /etc/os-release | cut -d \" -f 2
 tput bold
 if [ -z ${1+x} ]; then echo Will use default release - $release; else release=$1;echo Will use custom release - $release;fi
 tput sgr0
@@ -17,7 +18,7 @@ sudo fdisk -l /dev/$dev|grep -iv disk|grep /dev/$dev &> /dev/null && echo Device
 sudo fdisk -l /dev/$dev|grep -iv disk|grep /dev/$dev &> /dev/null && exit
 sudo pvdisplay | grep /dev/$dev &> /dev/null && echo Device $dev not empty, fix and try again
 sudo pvdisplay | grep /dev/$dev &> /dev/null && exit
-sudo yum -y install https://download.ceph.com/rpm-$release/el7/noarch/ceph-release-1-1.el7.noarch.rpm
+sudo yum -y install https://download.ceph.com/rpm-$release/el$osver/noarch/ceph-release-1-1.el7.noarch.rpm
 sudo yum -y remove firewalld
 sudo yum -y update
 sudo yum -y install ceph-mgr-dashboard ceph-deploy ceph-mon ceph-osd ceph-mgr ceph-mds ceph-radosgw htop mc||exit
