@@ -1,5 +1,5 @@
 release=nautilus
-osver=grep -i version_id /etc/os-release | cut -d \" -f 2
+osver=`grep -i version_id /etc/os-release | cut -d \" -f 2`
 tput bold
 if [ -z ${1+x} ]; then echo Will use default release - $release; else release=$1;echo Will use custom release - $release;fi
 tput sgr0
