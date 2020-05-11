@@ -17,8 +17,9 @@ sudo pvdisplay | grep /dev/$dev &> /dev/null && exit
 
 sudo apt -y upgrade
 sudo apt -y install ceph-mgr-dashboard ceph-mon ceph-osd ceph-mgr ceph-mds radosgw htop mc ||exit
-sudo apt -o Dpkg::Options::="--force-overwrite" install `dirname "$0"`/conf/ceph-deploy_2.0.1-0ubuntu1_all.deb
-sudo cp `dirname "$0"`/config/remotes.py /usr/lib/python3/dist-packages/ceph_deploy/hosts/remotes.py
+wrkdir=`pwd`/`dirname "$0"`
+sudo apt -o Dpkg::Options::="--force-overwrite" install $wrkdir/conf/ceph-deploy_2.0.1-0ubuntu1_all.deb
+sudo cp $wrkdir/conf/remotes.py /usr/lib/python3/dist-packages/ceph_deploy/hosts/remotes.py
 ipaddr=`sudo ip route get $(sudo ip route show 0.0.0.0/0 | grep -oP "via \K\S+") | grep -oP "src \K\S+"`
 uuid=`uuidgen`
 sudo grep $ipaddr /etc/hosts &> /dev/null || sudo sh -c "echo $ipaddr `hostname -s` >> /etc/hosts"
