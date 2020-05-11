@@ -1,5 +1,7 @@
+#!/usr/bin/bash
 grep -i 'focal fossa' /etc/os-release &>/dev/null || echo Bad OS. This works on Ubuntu 20 only
 grep -i 'focal fossa' /etc/os-release &>/dev/null || exit
+sudo apt -y update
 sudo apt -y install lvm2 virt-what pciutils &> /dev/null||exit
 dev=sdb
 [ "`sudo virt-what`" == "kvm" ] && dev=vdb
@@ -13,10 +15,10 @@ sudo fdisk -l /dev/$dev|grep -iv disk|grep /dev/$dev &> /dev/null && exit
 sudo pvdisplay | grep /dev/$dev &> /dev/null && echo Device $dev not empty, fix and try again
 sudo pvdisplay | grep /dev/$dev &> /dev/null && exit
 
-sudo apt -y update
+sudo apt -y upgrade
 sudo apt -y install ceph-mgr-dashboard ceph-mon ceph-osd ceph-mgr ceph-mds radosgw htop mc ||exit
-sudo apt -o Dpkg::Options::="--force-overwrite" install `pwd`/conf/ceph-deploy_2.0.1-0ubuntu1_all.deb
-sudo cp config/remotes.py /usr/lib/python3/dist-packages/ceph_deploy/hosts/remotes.py
+sudo apt -o Dpkg::Options::="--force-overwrite" install `dirname "$0"`/conf/ceph-deploy_2.0.1-0ubuntu1_all.deb
+sudo cp `dirname "$0"`/config/remotes.py /usr/lib/python3/dist-packages/ceph_deploy/hosts/remotes.py
 ipaddr=`sudo ip route get $(sudo ip route show 0.0.0.0/0 | grep -oP "via \K\S+") | grep -oP "src \K\S+"`
 uuid=`uuidgen`
 sudo grep $ipaddr /etc/hosts &> /dev/null || sudo sh -c "echo $ipaddr `hostname -s` >> /etc/hosts"
