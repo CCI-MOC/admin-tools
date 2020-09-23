@@ -10,7 +10,7 @@
 * Do not use if there are old (half)working ceph installation attempts, wipe clean and reinstall OS first.
 * Install time can be greatly reduced if you run os update procedure in advance.
 
-* **Copy and paste code blocks below to run with default release**
+* **Copy and paste code blocks below **
 
 
 ## Ubuntu 20 only
